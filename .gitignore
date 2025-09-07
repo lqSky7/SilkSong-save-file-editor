@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+user1.dat
+test_output.dat
+test-decryption.js

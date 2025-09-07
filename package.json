@@ -1,0 +1,13 @@
+{
+  "name": "silksong-save-editor",
+  "version": "1.0.0",
+  "description": "Web-based save editor for Hollow Knight: Silksong (Frontend-only)",
+  "main": "public/index.html",
+  "scripts": {
+    "serve": "python3 -m http.server 8000 --directory public",
+    "serve-alt": "npx http-server public -p 8000"
+  },
+  "keywords": ["silksong", "save-editor", "hollow-knight", "frontend"],
+  "author": "Your Name",
+  "license": "MIT"
+}
