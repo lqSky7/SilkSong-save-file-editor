@@ -175,11 +175,15 @@
             font-size: 1em !important;
             color: #d4af37 !important;
             font-style: italic;
-        }        .container h2 {
+        }
+        
+        .container h2 {
             font-size: 1.8em;
             margin-bottom: 25px;
             text-align: center;
-            color: #e6d3a3;
+            color: #d4af37;
+            font-family: 'Trajan Pro', 'Times New Roman', serif;
+            font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             letter-spacing: 2px;
         }
@@ -414,13 +418,13 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            font-size: 16px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            color: #d4af37;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -428,11 +432,17 @@
             justify-content: center;
             transition: all 0.3s ease;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Trajan Pro', 'Times New Roman', serif;
         }
 
         .info-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
         }
 
         .modal {
@@ -576,6 +586,117 @@
         .clear-recent:hover {
             background: rgba(255, 107, 107, 0.3);
             border-color: #ff6b6b;
+        }
+
+        /* Support box styles */
+        .support-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .support-toggle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            color: #d4af37;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .support-toggle:hover {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .support-content {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 250px;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .support-content.expanded {
+            transform: scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .support-title {
+            color: #d4af37;
+            font-family: 'Trajan Pro', 'Times New Roman', serif;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Trajan Pro', 'Times New Roman', serif;
+        }
+
+        .support-item:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            transform: translateX(-3px);
+        }
+
+        .support-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #d4af37;
+        }
+
+        .support-text {
+            flex: 1;
+            font-size: 0.9em;
+        }
+
+        .support-upi {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            color: #d4af37;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 5px;
+            word-break: break-all;
         }        @media (max-width: 768px) {
             .editor-panel {
                 grid-template-columns: 1fr;
@@ -1241,6 +1362,66 @@
                 showStatus('No save data loaded.', true);
             }
         }
+
+        // Support box functions
+        function toggleSupportBox() {
+            const content = document.getElementById('supportContent');
+            content.classList.toggle('expanded');
+        }
+
+        function copyUPI() {
+            const upiId = 'd.singh.55@superyes';
+            navigator.clipboard.writeText(upiId).then(() => {
+                showStatus('UPI ID copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = upiId;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showStatus('UPI ID copied to clipboard!');
+            });
+        }
+
+        // Add support box event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing DOMContentLoaded code ...
+            
+            // Support box toggle
+            document.getElementById('supportToggle').addEventListener('click', toggleSupportBox);
+            
+            // Close support box when clicking outside
+            document.addEventListener('click', function(e) {
+                const supportBox = document.querySelector('.support-box');
+                const supportContent = document.getElementById('supportContent');
+                
+                if (!supportBox.contains(e.target) && supportContent.classList.contains('expanded')) {
+                    supportContent.classList.remove('expanded');
+                }
+            });
+        });
     </script>
+
+    <!-- Support box -->
+    <div class="support-box">
+        <div class="support-toggle" id="supportToggle" title="Support the project">❤</div>
+        <div class="support-content" id="supportContent">
+            <div class="support-title">Support Project</div>
+            
+            <a href="https://github.com/lqSky7/SilkSong-save-file-editor" target="_blank" class="support-item">
+                <div class="support-text">Star on GitHub</div>
+            </a>
+            
+            <div class="support-item" onclick="copyUPI()" title="Click to copy UPI ID">
+                <div class="support-text">
+                    Donate via UPI
+                    <div class="support-upi" id="upiId">d.singh.55@superyes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
