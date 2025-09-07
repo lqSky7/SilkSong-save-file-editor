@@ -1,101 +1,43 @@
-# 🕷️ Silksong Save Editor
+# Silksong Save File Editor
 
-A web-based save editor for Hollow Knight: Silksong, adapted from the Hollow Knight save manager decryption logic.
+A web-based save file editor for Hollow Knight: Silksong that runs entirely in the browser.
 
 ## Features
 
-- 🔓 **Decrypt/Encrypt** Silksong save files using the same AES-256-ECB encryption as Hollow Knight
-- ✏️ **Edit** player data: name, geo, health, silk, abilities
-- 💾 **Download** modified save files in the correct encrypted format
-- 🎨 **Modern UI** with drag-and-drop file upload
-- 📊 **Save Summary** showing key player statistics
-
-## How It Works
-
-The editor replicates the decryption logic from the Hollow Knight SaveLoader.java:
-
-1. **File Structure**: Silksong saves use the same C# binary format as Hollow Knight
-2. **Encryption**: AES-256-ECB with PKCS7 padding using key `UKu52ePUBwetZ9wNX88o54dnfKRu0T1l`
-3. **Encoding**: Base64 encoding of encrypted JSON data
-4. **Header**: Same C# binary header structure
-
-## Installation
-
-```bash
-# Install dependencies
-npm install
-
-# Start the server
-npm start
-```
-
-The editor will be available at `http://localhost:3000`
+- Load and decrypt Silksong save files (.dat format)
+- Edit player data (health, geo, silk, abilities)
+- Save modified files back to encrypted format
+- No server required - runs completely client-side
 
 ## Usage
 
-1. **Upload** your `user1.dat` save file by dragging it to the upload area
-2. **Edit** the player data using the form fields
-3. **Update** the save data with your changes
-4. **Download** the modified save file
+1. Open `public/index.html` in a web browser
+2. Upload your save file (typically `user1.dat`)
+3. Edit the values as desired
+4. Download the modified save file
 
-## Supported Fields
+## Running Locally
 
-### Player Info
+Serve the files using any local web server:
 
-- Player Name
-- Geo (currency)
-- Health
-- Silk
+```bash
+# Using Python
+python3 -m http.server 8000 --directory public
 
-### Abilities
+# Using Node.js http-server
+npx http-server public -p 8000
 
-- Needle Dash
-- Wall Run
-- Double Jump
-- Bell Bind
-
-## Technical Details
-
-### Decryption Process
-
-1. Read C# binary header (22 bytes)
-2. Parse variable-length encoded data size
-3. Extract base64 encoded encrypted data
-4. Decrypt using AES-256-ECB
-5. Parse resulting JSON
-
-### Encryption Process
-
-1. Validate and serialize JSON data
-2. Encrypt using AES-256-ECB with PKCS7 padding
-3. Encode as base64
-4. Add C# header and variable-length size encoding
-5. Write binary file
-
-## File Structure
-
-```
-silksong-web-editor/
-├── server.js           # Node.js server with crypto logic
-├── package.json        # Dependencies
-├── public/
-│   └── index.html     # Web interface
-└── README.md          # This file
+# Using npm scripts
+npm run serve
 ```
 
-## API Endpoints
+Then open `http://localhost:8000` in your browser.
 
-- `POST /api/load-save` - Upload and decrypt save file
-- `POST /api/save` - Download encrypted save file
-- `POST /api/summary` - Get save data summary
+## Credits
 
-## Notes
+- Title design: [Hollow Knight Title Generator](https://prashantmohta.github.io/TitleGenerator.HollowKnight/?title=0&blur=true&font=1&bold=true&main=SilkSONG&sub=Save%20file%20editor)
+- Decryption methodology: [Hollow Knight SaveManager](https://github.com/KayDeeTee/Hollow-Knight-SaveManager)
 
-- The encryption key and method are identical to Hollow Knight
-- Area names and specific fields will need updates when Silksong releases
-- Currently supports hypothetical Silksong save structure
-- Maintains backward compatibility with Hollow Knight's save format
+## License
 
-## Security
-
-⚠️ **Warning**: This tool modifies save files. Always backup your original saves before editing!
+MIT
