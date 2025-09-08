@@ -74,116 +74,24 @@
         }
         
         .container {
-            background: rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, 
+                rgba(30, 35, 50, 0.9) 0%,
+                rgba(25, 30, 45, 0.95) 50%,
+                rgba(20, 25, 40, 0.9) 100%
+            );
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            margin: 40px auto;
-            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            max-width: 800px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .editor-panel {
-            background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 10px;
-            padding: 30px;
             margin-bottom: 30px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .editor-section {
-            margin-bottom: 40px;
-        }
-
-        .editor-section h3 {
-            color: #d4af37;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-size: 1.4em;
-            margin-bottom: 20px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .field-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 15px;
-        }
-
-        .field-group label {
-            min-width: 150px;
-            color: #fff;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        input[type="number"], input[type="text"], select {
-            flex: 1;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 8px;
-            color: #fff;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        input[type="number"]:focus, input[type="text"]:focus, select:focus {
-            outline: none;
-            border-color: #d4af37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        input[type="checkbox"] {
-            transform: scale(1.3);
-            accent-color: #d4af37;
-        }
-
-        .file-upload-area {
-            border: 3px dashed rgba(212, 175, 55, 0.5);
-            border-radius: 15px;
-            padding: 60px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        .file-upload-area:hover, .file-upload-area.dragover {
-            border-color: #d4af37;
-            background: rgba(212, 175, 55, 0.1);
-            transform: scale(1.02);
-        }
-
-        .upload-content p {
-            margin: 10px 0;
-            font-size: 1.2em;
-            color: #fff;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .upload-subtitle {
-            font-size: 1em !important;
-            color: #d4af37 !important;
-            font-style: italic;
-        }
-        
         .container h2 {
             font-size: 1.8em;
             margin-bottom: 25px;
             text-align: center;
-            color: #d4af37;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-weight: bold;
+            color: #e6d3a3;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             letter-spacing: 2px;
         }
@@ -320,44 +228,38 @@
         }
 
         button {
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            border: 2px solid rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
             padding: 12px 25px;
             border-radius: 25px;
             cursor: pointer;
             margin: 0 10px;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
+            font-family: 'Trajan Pro', serif;
             font-size: 1em;
-            font-weight: bold;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         button:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: #d4af37;
+            background: linear-gradient(135deg, #d4af37, #b8941f);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         button.primary {
-            background: rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, #d4af37, #b8941f);
             border-color: #d4af37;
         }
 
         button.primary:hover {
-            background: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, #f4d03f, #d4af37);
         }
 
         button.load-button {
-            background: rgba(139, 69, 19, 0.3);
-            border-color: rgba(210, 105, 30, 0.6);
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            border-color: #D2691E;
             margin-left: 15px;
             padding: 12px 25px;
             border-radius: 25px;
@@ -366,8 +268,7 @@
         }
 
         button.load-button:hover {
-            background: rgba(210, 105, 30, 0.3);
-            border-color: #F4A460;
+            background: linear-gradient(135deg, #A0522D, #F4A460);
         }
         
         .error {
@@ -378,10 +279,7 @@
             border-radius: 8px;
             margin: 15px 0;
             font-size: 1.1em;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
             text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
         
         .success {
@@ -392,312 +290,21 @@
             border-radius: 8px;
             margin: 15px 0;
             font-size: 1.1em;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
             text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
         
         .raw-data {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
-            color: #fff;
-            white-space: pre-wrap;
             max-height: 400px;
             overflow-y: auto;
-            word-break: break-all;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        /* Info button and modal styles */
-        .info-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(212, 175, 55, 0.2);
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            color: #d4af37;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-        }
-
-        .info-button:hover {
-            background: rgba(212, 175, 55, 0.3);
-            border-color: #d4af37;
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            margin: 10% auto;
-            padding: 30px;
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            border-radius: 15px;
-            width: 80%;
-            max-width: 500px;
-            color: #fff;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            color: #d4af37;
-            margin: 0;
-            font-size: 1.5em;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-        }
-
-        .close:hover {
-            color: #d4af37;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        .save-location {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
-            word-break: break-all;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .save-location-label {
-            color: #d4af37;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Recent files section */
-        .recent-files {
-            margin-top: 20px;
-        }
-
-        .recent-files h4 {
-            color: #d4af37;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .recent-file-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .recent-file-item:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: #d4af37;
-            transform: translateX(5px);
-        }
-
-        .recent-file-name {
-            flex: 1;
-            margin-right: 10px;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .recent-file-date {
-            font-size: 0.8em;
-            color: #d4af37;
-            font-style: italic;
-        }
-
-        .clear-recent {
-            background: rgba(255, 107, 107, 0.2);
-            border: 1px solid rgba(255, 107, 107, 0.4);
-            color: #ff6b6b;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .clear-recent:hover {
-            background: rgba(255, 107, 107, 0.3);
-            border-color: #ff6b6b;
-        }
-
-        /* Support box styles */
-        .support-box {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .support-toggle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(212, 175, 55, 0.2);
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            color: #d4af37;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .support-toggle:hover {
-            background: rgba(212, 175, 55, 0.3);
-            border-color: #d4af37;
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .support-content {
-            position: absolute;
-            bottom: 60px;
-            right: 0;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            border-radius: 15px;
-            padding: 20px;
-            min-width: 250px;
-            transform: scale(0);
-            transform-origin: bottom right;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .support-content.expanded {
-            transform: scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .support-title {
-            color: #d4af37;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .support-item {
-            display: flex;
-            align-items: center;
-            margin: 12px 0;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: #fff;
-            font-family: 'Trajan Pro', 'Times New Roman', serif;
-        }
-
-        .support-item:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: #d4af37;
-            transform: translateX(-3px);
-        }
-
-        .support-icon {
-            font-size: 18px;
-            margin-right: 10px;
-            color: #d4af37;
-        }
-
-        .support-text {
-            flex: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.9em;
         }
 
-        .support-upi {
-            font-family: 'Courier New', monospace;
-            font-size: 0.8em;
-            color: #d4af37;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px;
-            border-radius: 5px;
-            margin-top: 5px;
-            word-break: break-all;
-        }        @media (max-width: 768px) {
+        @media (max-width: 768px) {
             .editor-panel {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -715,39 +322,6 @@
     </style>
 </head>
 <body>
-    <!-- Info button -->
-    <div class="info-button" id="infoButton" title="Save file locations & recent files">i</div>
-    
-    <!-- Info modal -->
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Save File Locations</h3>
-                <span class="close" id="closeModal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="save-location">
-                    <div class="save-location-label">Windows:</div>
-                    C:\Users\Username\AppData\LocalLow\Team Cherry\Hollow Knight Silksong
-                </div>
-                <div class="save-location">
-                    <div class="save-location-label">Mac:</div>
-                    /Users/Username/Library/Application Support/unity.Team-Cherry.Silksong/default
-                </div>
-                <div class="save-location">
-                    <div class="save-location-label">Linux:</div>
-                    ~/.config/unity3d/Team Cherry/Hollow Knight Silksong
-                </div>
-                
-                <div class="recent-files">
-                    <h4>Recent Files</h4>
-                    <div id="recentFilesList"></div>
-                    <div class="clear-recent" id="clearRecent">Clear Recent Files</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="header">
         <img src="HEADER.png" alt="Silksong Save Editor">
     </div>
@@ -819,260 +393,74 @@
         </div>
     </div>
 
-    <!-- CryptoJS library for AES encryption/decryption -->
-    <script src="crypto-js.min.js"></script>
+    <!-- AES library for encryption/decryption -->
+    <script src="https://cdn.jsdelivr.net/npm/aes-js@3.1.2/index.min.js"></script>
+    <!-- Silksong utilities -->
+    <script src="silksong-utils.js"></script>
     
     <script>
         /**
-         * Silksong Save Editor - JavaScript implementation
-         * Adapted from Hollow Knight Save Manager decryption logic
+         * Silksong Save Editor - Main Application
+         * Uses silksong-utils.js for save file processing
          */
 
         class SilksongSaveEditor {
             constructor() {
-                // Constants from Hollow Knight SaveLoader.java - same encryption method likely used
-                this.CIPHER_KEY = "UKu52ePUBwetZ9wNX88o54dnfKRu0T1l";
-                this.BLOCK_SIZE = 16;
-                
-                // C# binary header from Hollow Knight - likely same for Silksong
-                this.CSHARP_HEADER = new Uint8Array([
-                    0x00, 0x01, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 
-                    0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-                    0x00, 0x06, 0x01, 0x00, 0x00, 0x00
-                ]);
-                
                 this.saveData = null;
+                this.originalBytes = null;
             }
 
             /**
-             * Decrypt AES data using the same method as Hollow Knight
-             * Uses AES-256-ECB with PKCS7 padding
-             */
-            decryptAES(encryptedData, key) {
-                try {
-                    // Convert key to proper format
-                    const keyWords = CryptoJS.enc.Utf8.parse(key);
-                    
-                    // Convert base64 encrypted data to bytes
-                    const encrypted = CryptoJS.enc.Base64.parse(encryptedData);
-                    
-                    // Decrypt using AES ECB mode with PKCS7 padding
-                    const decrypted = CryptoJS.AES.decrypt({
-                        ciphertext: encrypted
-                    }, keyWords, {
-                        mode: CryptoJS.mode.ECB,
-                        padding: CryptoJS.pad.Pkcs7
-                    });
-                    
-                    return decrypted.toString(CryptoJS.enc.Utf8);
-                } catch (error) {
-                    console.error('Decryption failed:', error);
-                    throw new Error('Failed to decrypt save data');
-                }
-            }
-
-            /**
-             * Encrypt JSON data using the same method as Hollow Knight
-             */
-            encryptAES(jsonString, key) {
-                try {
-                    const keyWords = CryptoJS.enc.Utf8.parse(key);
-                    
-                    const encrypted = CryptoJS.AES.encrypt(jsonString, keyWords, {
-                        mode: CryptoJS.mode.ECB,
-                        padding: CryptoJS.pad.Pkcs7
-                    });
-                    
-                    return encrypted.toString();
-                } catch (error) {
-                    console.error('Encryption failed:', error);
-                    throw new Error('Failed to encrypt save data');
-                }
-            }
-
-            /**
-             * Parse C# variable length encoded integer
-             * Adapted from getLength method in SaveLoader.java
-             */
-            parseVariableLength(data, offset) {
-                let length = 0;
-                let shift = 0;
-                let index = offset;
-                
-                while (index < data.length) {
-                    const byte = data[index++];
-                    length |= (byte & 0x7F) << shift;
-                    
-                    if ((byte & 0x80) === 0) {
-                        break;
-                    }
-                    shift += 7;
-                }
-                
-                return { length, nextOffset: index };
-            }
-
-            /**
-             * Create C# variable length encoded integer
-             */
-            createVariableLength(value) {
-                const result = [];
-                
-                while (value >= 0x80) {
-                    result.push((value & 0x7F) | 0x80);
-                    value >>>= 7;
-                }
-                result.push(value & 0x7F);
-                
-                return new Uint8Array(result);
-            }
-
-            /**
-             * Load and decrypt a Silksong save file
+             * Load and parse a save file
              */
             async loadSave(file) {
-                try {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const data = new Uint8Array(arrayBuffer);
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
                     
-                    // Check if it's already JSON (unencrypted)
-                    const firstChar = String.fromCharCode(data[0]);
-                    if (firstChar === '{') {
-                        const jsonString = new TextDecoder().decode(data);
-                        this.saveData = JSON.parse(jsonString);
-                        return this.saveData;
-                    }
+                    reader.onload = (e) => {
+                        try {
+                            this.originalBytes = new Uint8Array(e.target.result);
+                            const jsonString = silksongDecodeSave(this.originalBytes);
+                            this.saveData = JSON.parse(jsonString);
+                            
+                            // Ensure playerData exists
+                            if (!this.saveData.playerData) {
+                                this.saveData.playerData = {
+                                    health: 5,
+                                    geo: 0,
+                                    silk: 0,
+                                    hasNeedleDash: false,
+                                    hasWallRun: false,
+                                    hasDoubleJump: false,
+                                    hasBellBind: false
+                                };
+                            }
+                            
+                            resolve(this.saveData);
+                        } catch (error) {
+                            console.error('Parse error:', error);
+                            reject(new Error('Failed to parse save file. Make sure it\'s a valid Silksong save file.'));
+                        }
+                    };
                     
-                    // Verify C# header
-                    const headerMatch = this.CSHARP_HEADER.every((byte, index) => 
-                        index < data.length && data[index] === byte
-                    );
+                    reader.onerror = () => {
+                        reject(new Error('Failed to read save file.'));
+                    };
                     
-                    if (!headerMatch) {
-                        throw new Error('Invalid save file format - header mismatch');
-                    }
-                    
-                    // Parse variable length encoded size
-                    const { length: encryptedDataLength, nextOffset } = 
-                        this.parseVariableLength(data, this.CSHARP_HEADER.length);
-                    
-            // Extract encrypted data (skip the final 0x0B byte)
-            const encryptedData = data.slice(nextOffset, nextOffset + encryptedDataLength);
-            
-            // Convert encrypted data to string (it's base64 encoded in the file)
-            const base64String = new TextDecoder().decode(encryptedData);
-            
-            // Decrypt the data - CryptoJS expects the base64 string directly
-            const decryptedJson = this.decryptAES(base64String, this.CIPHER_KEY);                    if (!decryptedJson) {
-                        throw new Error('Decryption resulted in empty data');
-                    }
-                    
-                    // Parse JSON
-                    this.saveData = JSON.parse(decryptedJson);
-                    return this.saveData;
-                    
-                } catch (error) {
-                    console.error('Error loading save:', error);
-                    throw new Error(`Failed to load save file: ${error.message}`);
-                }
+                    reader.readAsArrayBuffer(file);
+                });
             }
 
             /**
-             * Save the current data back to encrypted format
+             * Create a new save file with current data
              */
             createSaveFile() {
                 if (!this.saveData) {
-                    throw new Error('No save data loaded');
+                    throw new Error('No save data to export');
                 }
                 
-                try {
-                    // Validate and clean save data
-                    this.validateSaveData();
-                    
-                    // Convert to JSON string
-                    let jsonString = JSON.stringify(this.saveData);
-                    
-                    // Clean up JSON string (remove trailing whitespace/newlines like in original)
-                    jsonString = jsonString.replace(/\s+$/, '');
-                    
-                    // Encrypt the JSON
-                    const encryptedBase64 = this.encryptAES(jsonString, this.CIPHER_KEY);
-                    
-                    // Convert base64 back to bytes
-                    const encryptedBytes = Uint8Array.from(atob(encryptedBase64), c => c.charCodeAt(0));
-                    
-                    // Remove carriage returns and line feeds (like in original)
-                    const cleanedBytes = encryptedBytes.filter(byte => 
-                        byte !== 0x0D && byte !== 0x0A
-                    );
-                    
-                    // Create variable length encoding of data size
-                    const lengthBytes = this.createVariableLength(cleanedBytes.length);
-                    
-                    // Combine all parts
-                    const totalLength = this.CSHARP_HEADER.length + lengthBytes.length + 
-                                      cleanedBytes.length + 1; // +1 for final 0x0B byte
-                    
-                    const result = new Uint8Array(totalLength);
-                    let offset = 0;
-                    
-                    // Copy header
-                    result.set(this.CSHARP_HEADER, offset);
-                    offset += this.CSHARP_HEADER.length;
-                    
-                    // Copy length encoding
-                    result.set(lengthBytes, offset);
-                    offset += lengthBytes.length;
-                    
-                    // Copy encrypted data
-                    result.set(cleanedBytes, offset);
-                    offset += cleanedBytes.length;
-                    
-                    // Add final byte
-                    result[offset] = 0x0B;
-                    
-                    return result;
-                    
-                } catch (error) {
-                    console.error('Error creating save file:', error);
-                    throw new Error(`Failed to create save file: ${error.message}`);
-                }
-            }
-
-            /**
-             * Validate and fix save data (adapted from validateSaveData and validateCharms)
-             */
-            validateSaveData() {
-                if (!this.saveData || !this.saveData.playerData) {
-                    return;
-                }
-                
-                const playerData = this.saveData.playerData;
-                
-                // Fix boolean values that might be stored as integers
-                const booleanFields = [
-                    'hasNeedleDash', 'hasWallRun', 'hasDoubleJump', 'hasBellBind',
-                    'permadeathMode', 'canDash'
-                ];
-                
-                booleanFields.forEach(field => {
-                    if (playerData.hasOwnProperty(field)) {
-                        playerData[field] = Boolean(playerData[field]);
-                    }
-                });
-                
-                // Validate numeric ranges
-                if (playerData.health !== undefined) {
-                    playerData.health = Math.max(1, Math.min(20, parseInt(playerData.health) || 5));
-                }
-                
-                if (playerData.geo !== undefined) {
-                    playerData.geo = Math.max(0, Math.min(999999, parseInt(playerData.geo) || 0));
-                }
-                
-                if (playerData.silk !== undefined) {
-                    playerData.silk = Math.max(0, Math.min(999, parseInt(playerData.silk) || 0));
-                }
+                const jsonString = JSON.stringify(this.saveData);
+                return silksongEncodeSave(jsonString);
             }
 
             /**
@@ -1108,110 +496,10 @@
         // Global instance
         const saveEditor = new SilksongSaveEditor();
 
-        // LocalStorage functions for recent files
-        function saveToLocalStorage(fileName, saveData) {
-            try {
-                const recentFiles = JSON.parse(localStorage.getItem('silksongRecentFiles') || '[]');
-                const fileEntry = {
-                    name: fileName,
-                    data: saveData,
-                    timestamp: Date.now(),
-                    date: new Date().toLocaleString()
-                };
-                
-                // Remove existing entry with same name
-                const filtered = recentFiles.filter(f => f.name !== fileName);
-                
-                // Add new entry at the beginning
-                filtered.unshift(fileEntry);
-                
-                // Keep only last 5 files
-                const trimmed = filtered.slice(0, 5);
-                
-                localStorage.setItem('silksongRecentFiles', JSON.stringify(trimmed));
-                updateRecentFilesList();
-            } catch (error) {
-                console.warn('Could not save to localStorage:', error);
-            }
-        }
-
-        function loadFromLocalStorage(fileName) {
-            try {
-                const recentFiles = JSON.parse(localStorage.getItem('silksongRecentFiles') || '[]');
-                const file = recentFiles.find(f => f.name === fileName);
-                return file ? file.data : null;
-            } catch (error) {
-                console.warn('Could not load from localStorage:', error);
-                return null;
-            }
-        }
-
-        function updateRecentFilesList() {
-            const recentFilesList = document.getElementById('recentFilesList');
-            try {
-                const recentFiles = JSON.parse(localStorage.getItem('silksongRecentFiles') || '[]');
-                
-                if (recentFiles.length === 0) {
-                    recentFilesList.innerHTML = '<p style="color: #aaa; font-style: italic;">No recent files</p>';
-                    return;
-                }
-                
-                recentFilesList.innerHTML = recentFiles.map(file => `
-                    <div class="recent-file-item" onclick="loadRecentFile('${file.name}')">
-                        <div class="recent-file-name">${file.name}</div>
-                        <div class="recent-file-date">${file.date}</div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                recentFilesList.innerHTML = '<p style="color: #ff6b6b;">Error loading recent files</p>';
-            }
-        }
-
-        function loadRecentFile(fileName) {
-            const saveData = loadFromLocalStorage(fileName);
-            if (saveData) {
-                saveEditor.saveData = saveData;
-                populateEditor(saveData);
-                document.getElementById('editorContainer').style.display = 'block';
-                document.getElementById('infoModal').style.display = 'none';
-                showStatus(`Loaded recent file: ${fileName}`);
-            } else {
-                showStatus('Could not load recent file', true);
-            }
-        }
-
-        function clearRecentFiles() {
-            localStorage.removeItem('silksongRecentFiles');
-            updateRecentFilesList();
-            showStatus('Recent files cleared');
-        }
-
-        // Modal functions
-        function showInfoModal() {
-            document.getElementById('infoModal').style.display = 'block';
-            updateRecentFilesList();
-        }
-
-        function hideInfoModal() {
-            document.getElementById('infoModal').style.display = 'none';
-        }
-
         // Initialize drag and drop functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const fileUploadArea = document.getElementById('fileUploadArea');
             const fileInput = document.getElementById('fileInput');
-
-            // Modal event listeners
-            document.getElementById('infoButton').addEventListener('click', showInfoModal);
-            document.getElementById('closeModal').addEventListener('click', hideInfoModal);
-            document.getElementById('clearRecent').addEventListener('click', clearRecentFiles);
-            
-            // Close modal when clicking outside
-            document.getElementById('infoModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    hideInfoModal();
-                }
-            });
 
             // Click to browse
             fileUploadArea.addEventListener('click', function() {
@@ -1278,9 +566,6 @@
                     showStatus('Save file loaded successfully!');
                     populateEditor(saveData);
                     document.getElementById('editorContainer').style.display = 'block';
-                    
-                    // Save to localStorage for recent files
-                    saveToLocalStorage(file.name, saveData);
                 })
                 .catch(error => {
                     showStatus(error.message, true);
@@ -1362,66 +647,6 @@
                 showStatus('No save data loaded.', true);
             }
         }
-
-        // Support box functions
-        function toggleSupportBox() {
-            const content = document.getElementById('supportContent');
-            content.classList.toggle('expanded');
-        }
-
-        function copyUPI() {
-            const upiId = 'd.singh.55@superyes';
-            navigator.clipboard.writeText(upiId).then(() => {
-                showStatus('UPI ID copied to clipboard!');
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = upiId;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showStatus('UPI ID copied to clipboard!');
-            });
-        }
-
-        // Add support box event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... existing DOMContentLoaded code ...
-            
-            // Support box toggle
-            document.getElementById('supportToggle').addEventListener('click', toggleSupportBox);
-            
-            // Close support box when clicking outside
-            document.addEventListener('click', function(e) {
-                const supportBox = document.querySelector('.support-box');
-                const supportContent = document.getElementById('supportContent');
-                
-                if (!supportBox.contains(e.target) && supportContent.classList.contains('expanded')) {
-                    supportContent.classList.remove('expanded');
-                }
-            });
-        });
     </script>
-
-    <!-- Support box -->
-    <div class="support-box">
-        <div class="support-toggle" id="supportToggle" title="Support the project">❤</div>
-        <div class="support-content" id="supportContent">
-            <div class="support-title">Support Project</div>
-            
-            <a href="https://github.com/lqSky7/SilkSong-save-file-editor" target="_blank" class="support-item">
-                <div class="support-text">Star on GitHub</div>
-            </a>
-            
-            <div class="support-item" onclick="copyUPI()" title="Click to copy UPI ID">
-                <div class="support-text">
-                    Donate via UPI
-                    <div class="support-upi" id="upiId">d.singh.55@superyes</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 </html>
