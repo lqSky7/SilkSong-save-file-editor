@@ -301,6 +301,54 @@
             word-wrap: break-word;
         }
 
+        .raw-editor {
+            width: 100%;
+            min-height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            resize: vertical;
+            white-space: pre;
+            overflow-wrap: normal;
+            tab-size: 2;
+        }
+
+        .raw-editor:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .monaco-editor-container {
+            width: 100%;
+            height: 400px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #1e1e1e;
+        }
+
+        .monaco-editor-container:focus-within {
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .file-type-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            color: #d4af37;
+        }
+
         /* Info button and popup styles */
         .info-button {
             position: fixed;
@@ -571,8 +619,8 @@
                         </svg>
                     </div>
                     <p>Drag & Drop your save file here</p>
-                    <p class="upload-subtitle">or click to browse</p>
-                    <input type="file" id="fileInput" accept=".dat" style="display: none;">
+                    <p class="upload-subtitle">Supports .dat, .json, and .txt files</p>
+                    <input type="file" id="fileInput" accept=".dat,.json,.txt" style="display: none;">
                 </div>
             </div>
             <div id="status"></div>
@@ -621,13 +669,29 @@
             <div class="button-group">
                 <button class="primary" onclick="saveSave()">Save Changes</button>
                 <button onclick="downloadSave()">Download Save</button>
+                <button onclick="downloadDecryptedSave()">Download Decrypted</button>
                 <button onclick="showRawData()">Show Raw Data</button>
+            </div>
+        </div>
+
+        <div class="container" id="rawEditorContainer" style="display: none;">
+            <h2>Raw Data Editor <span id="fileTypeIndicator" class="file-type-indicator"></span></h2>
+            <div id="rawEditor" class="monaco-editor-container"></div>
+            <div class="button-group">
+                <button class="primary" onclick="saveRawData()">Save Changes</button>
+                <button onclick="downloadRawSave()">Download File</button>
+                <button onclick="downloadEncryptedSave()">Download as Encrypted .dat</button>
             </div>
         </div>
 
         <div class="container" id="rawDataContainer" style="display: none;">
             <h2>Raw Save Data (JSON)</h2>
-            <div id="rawData" class="raw-data"></div>
+            <div id="rawData" class="monaco-editor-container"></div>
+            <div class="button-group">
+                <button class="primary" onclick="saveRawChanges()">Save Changes</button>
+                <button onclick="downloadRawAsEncrypted()">Download as .dat</button>
+                <button onclick="downloadRawAsJson()">Download as .json</button>
+            </div>
         </div>
     </div>
 
@@ -661,6 +725,8 @@
 
     <!-- AES library for encryption/decryption -->
     <script src="https://cdn.jsdelivr.net/npm/aes-js@3.1.2/index.min.js"></script>
+    <!-- Monaco Editor for advanced JSON editing -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs/loader.js"></script>
     <!-- Silksong utilities -->
     <script src="silksong-utils.js"></script>
     
@@ -674,6 +740,9 @@
             constructor() {
                 this.saveData = null;
                 this.originalBytes = null;
+                this.rawData = null;
+                this.fileType = null; // 'dat', 'json', or 'txt'
+                this.fileName = null;
             }
 
             /**
@@ -682,15 +751,41 @@
             async loadSave(file) {
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
+                    this.fileName = file.name;
+                    
+                    // Determine file type
+                    if (file.name.toLowerCase().endsWith('.dat')) {
+                        this.fileType = 'dat';
+                    } else if (file.name.toLowerCase().endsWith('.json')) {
+                        this.fileType = 'json';
+                    } else if (file.name.toLowerCase().endsWith('.txt')) {
+                        this.fileType = 'txt';
+                    } else {
+                        reject(new Error('Unsupported file type. Please use .dat, .json, or .txt files.'));
+                        return;
+                    }
                     
                     reader.onload = (e) => {
                         try {
-                            this.originalBytes = new Uint8Array(e.target.result);
-                            const jsonString = silksongDecodeSave(this.originalBytes);
-                            this.saveData = JSON.parse(jsonString);
+                            if (this.fileType === 'dat') {
+                                // Handle encrypted .dat files
+                                this.originalBytes = new Uint8Array(e.target.result);
+                                const jsonString = silksongDecodeSave(this.originalBytes);
+                                this.saveData = JSON.parse(jsonString);
+                                this.rawData = jsonString;
+                            } else {
+                                // Handle plain text .json/.txt files
+                                this.rawData = e.target.result;
+                                try {
+                                    this.saveData = JSON.parse(this.rawData);
+                                } catch (parseError) {
+                                    // If it's not valid JSON, that's okay for .txt files
+                                    this.saveData = null;
+                                }
+                            }
                             
-                            // Ensure playerData exists
-                            if (!this.saveData.playerData) {
+                            // Ensure playerData exists for .dat and valid JSON files
+                            if (this.saveData && !this.saveData.playerData) {
                                 this.saveData.playerData = {
                                     health: 5,
                                     geo: 0,
@@ -702,10 +797,10 @@
                                 };
                             }
                             
-                            resolve(this.saveData);
+                            resolve({ saveData: this.saveData, rawData: this.rawData, fileType: this.fileType });
                         } catch (error) {
                             console.error('Parse error:', error);
-                            reject(new Error('Failed to parse save file. Make sure it\'s a valid Silksong save file.'));
+                            reject(new Error('Failed to parse save file. Make sure it\'s a valid file.'));
                         }
                     };
                     
@@ -713,7 +808,11 @@
                         reject(new Error('Failed to read save file.'));
                     };
                     
-                    reader.readAsArrayBuffer(file);
+                    if (this.fileType === 'dat') {
+                        reader.readAsArrayBuffer(file);
+                    } else {
+                        reader.readAsText(file);
+                    }
                 });
             }
 
@@ -727,6 +826,42 @@
                 
                 const jsonString = JSON.stringify(this.saveData);
                 return silksongEncodeSave(jsonString);
+            }
+
+            /**
+             * Create a decrypted JSON file
+             */
+            createDecryptedFile() {
+                if (!this.saveData) {
+                    throw new Error('No save data to export');
+                }
+                
+                const jsonString = JSON.stringify(this.saveData, null, 2);
+                return new TextEncoder().encode(jsonString);
+            }
+
+            /**
+             * Create raw data file
+             */
+            createRawFile() {
+                if (!this.rawData) {
+                    throw new Error('No raw data to export');
+                }
+                
+                return new TextEncoder().encode(this.rawData);
+            }
+
+            /**
+             * Update raw data and try to parse as JSON
+             */
+            updateRawData(newRawData) {
+                this.rawData = newRawData;
+                try {
+                    this.saveData = JSON.parse(newRawData);
+                } catch (error) {
+                    // For .txt files or invalid JSON, saveData remains null
+                    this.saveData = null;
+                }
             }
 
             /**
@@ -756,14 +891,61 @@
                 }
                 
                 Object.assign(this.saveData.playerData, updates);
+                // Update raw data to reflect changes
+                this.rawData = JSON.stringify(this.saveData, null, 2);
             }
         }
 
         // Global instance
         const saveEditor = new SilksongSaveEditor();
 
+        // Monaco Editor instances
+        let rawDataEditor = null;
+        let rawEditorInstance = null;
+
+        // Initialize Monaco Editor
+        function initializeMonacoEditor() {
+            require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs' } });
+            require(['vs/editor/editor.main'], function () {
+                // Raw Data Editor (for .dat files)
+                rawDataEditor = monaco.editor.create(document.getElementById('rawData'), {
+                    value: '',
+                    language: 'json',
+                    theme: 'vs-dark',
+                    automaticLayout: true,
+                    formatOnPaste: true,
+                    formatOnType: true,
+                    minimap: { enabled: false },
+                    wordWrap: 'on',
+                    lineNumbers: 'on',
+                    folding: true,
+                    fontSize: 14,
+                    fontFamily: 'Consolas, Monaco, "Courier New", monospace'
+                });
+
+                // Raw Editor (for .json/.txt files)
+                rawEditorInstance = monaco.editor.create(document.getElementById('rawEditor'), {
+                    value: '',
+                    language: 'json',
+                    theme: 'vs-dark',
+                    automaticLayout: true,
+                    formatOnPaste: true,
+                    formatOnType: true,
+                    minimap: { enabled: false },
+                    wordWrap: 'on',
+                    lineNumbers: 'on',
+                    folding: true,
+                    fontSize: 14,
+                    fontFamily: 'Consolas, Monaco, "Courier New", monospace'
+                });
+            });
+        }
+
         // Initialize drag and drop functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Monaco Editor
+            initializeMonacoEditor();
+            
             const fileUploadArea = document.getElementById('fileUploadArea');
             const fileInput = document.getElementById('fileInput');
 
@@ -820,18 +1002,29 @@
             }
 
             // Validate file type
-            if (!file.name.endsWith('.dat')) {
-                showStatus('Please select a valid .dat save file.', true);
+            const fileName = file.name.toLowerCase();
+            if (!fileName.endsWith('.dat') && !fileName.endsWith('.json') && !fileName.endsWith('.txt')) {
+                showStatus('Please select a valid .dat, .json, or .txt file.', true);
                 return;
             }
             
             showStatus('Loading save file...');
             
             saveEditor.loadSave(file)
-                .then(saveData => {
+                .then(result => {
                     showStatus('Save file loaded successfully!');
-                    populateEditor(saveData);
-                    document.getElementById('editorContainer').style.display = 'block';
+                    
+                    if (result.fileType === 'dat' && result.saveData) {
+                        // Show structured editor for .dat files
+                        populateEditor(result.saveData);
+                        document.getElementById('editorContainer').style.display = 'block';
+                        document.getElementById('rawEditorContainer').style.display = 'none';
+                    } else {
+                        // Show raw editor for .json/.txt files
+                        populateRawEditor(result.rawData, result.fileType);
+                        document.getElementById('rawEditorContainer').style.display = 'block';
+                        document.getElementById('editorContainer').style.display = 'none';
+                    }
                 })
                 .catch(error => {
                     showStatus(error.message, true);
@@ -859,6 +1052,21 @@
             document.getElementById('hasBellBind').checked = Boolean(pd.hasBellBind);
         }
 
+        function populateRawEditor(rawData, fileType) {
+            const indicator = document.getElementById('fileTypeIndicator');
+            indicator.textContent = fileType.toUpperCase();
+            
+            if (rawEditorInstance) {
+                rawEditorInstance.setValue(rawData);
+                // Set language based on file type
+                if (fileType === 'json') {
+                    monaco.editor.setModelLanguage(rawEditorInstance.getModel(), 'json');
+                } else {
+                    monaco.editor.setModelLanguage(rawEditorInstance.getModel(), 'plaintext');
+                }
+            }
+        }
+
         function saveSave() {
             try {
                 // Collect updated values from UI
@@ -874,6 +1082,18 @@
                 
                 saveEditor.updatePlayerData(updates);
                 showStatus('Save data updated successfully!');
+                
+                // If raw data container is visible, update it too
+                const rawDataContainer = document.getElementById('rawDataContainer');
+                if (rawDataContainer.style.display !== 'none' && rawDataEditor) {
+                    rawDataEditor.setValue(JSON.stringify(saveEditor.saveData, null, 2));
+                }
+                
+                // If raw editor is visible, update it too
+                const rawEditorContainer = document.getElementById('rawEditorContainer');
+                if (rawEditorContainer.style.display !== 'none' && rawEditorInstance) {
+                    rawEditorInstance.setValue(saveEditor.rawData);
+                }
                 
             } catch (error) {
                 showStatus(error.message, true);
@@ -902,15 +1122,214 @@
             }
         }
 
+        function downloadDecryptedSave() {
+            try {
+                const decryptedData = saveEditor.createDecryptedFile();
+                const blob = new Blob([decryptedData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'save_decrypted.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('Decrypted save file downloaded successfully!');
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Download error:', error);
+            }
+        }
+
+        function saveRawData() {
+            try {
+                const newData = rawEditorInstance ? rawEditorInstance.getValue() : '';
+                saveEditor.updateRawData(newData);
+                showStatus('Raw data updated successfully!');
+                
+                // If the raw data is valid JSON with playerData, also populate the structured editor
+                if (saveEditor.saveData && saveEditor.saveData.playerData) {
+                    populateEditor(saveEditor.saveData);
+                }
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Save raw data error:', error);
+            }
+        }
+
+        function downloadRawSave() {
+            try {
+                const newData = rawEditorInstance ? rawEditorInstance.getValue() : '';
+                saveEditor.updateRawData(newData);
+                
+                const rawData = saveEditor.createRawFile();
+                const blob = new Blob([rawData], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                
+                // Use original filename or default based on file type
+                let filename = saveEditor.fileName || 'save_data';
+                if (saveEditor.fileType === 'json') {
+                    filename = filename.replace(/\.[^/.]+$/, '') + '.json';
+                } else if (saveEditor.fileType === 'txt') {
+                    filename = filename.replace(/\.[^/.]+$/, '') + '.txt';
+                } else {
+                    filename += '.txt';
+                }
+                
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('Raw file downloaded successfully!');
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Download raw error:', error);
+            }
+        }
+
+        function downloadEncryptedSave() {
+            try {
+                const newData = rawEditorInstance ? rawEditorInstance.getValue() : '';
+                saveEditor.updateRawData(newData);
+                
+                if (!saveEditor.saveData) {
+                    throw new Error('Cannot encrypt invalid JSON data. Please ensure the content is valid JSON.');
+                }
+                
+                const encryptedData = saveEditor.createSaveFile();
+                const blob = new Blob([encryptedData], { type: 'application/octet-stream' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'user1.dat';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('Encrypted save file downloaded successfully!');
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Download encrypted error:', error);
+            }
+        }
+
+        function saveRawChanges() {
+            try {
+                const newData = rawDataEditor ? rawDataEditor.getValue() : '';
+                
+                // Validate JSON
+                let parsedData;
+                try {
+                    parsedData = JSON.parse(newData);
+                } catch (jsonError) {
+                    throw new Error('Invalid JSON format. Please check your syntax.');
+                }
+                
+                // Update the save editor with new data
+                saveEditor.rawData = newData;
+                saveEditor.saveData = parsedData;
+                
+                // Update the structured editor if it's visible and has playerData
+                const editorContainer = document.getElementById('editorContainer');
+                if (editorContainer.style.display !== 'none' && parsedData.playerData) {
+                    populateEditor(parsedData);
+                }
+                
+                showStatus('Raw data changes saved successfully!');
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Save raw changes error:', error);
+            }
+        }
+
+        function downloadRawAsEncrypted() {
+            try {
+                const newData = rawDataEditor ? rawDataEditor.getValue() : '';
+                
+                // Validate and update data first
+                let parsedData;
+                try {
+                    parsedData = JSON.parse(newData);
+                } catch (jsonError) {
+                    throw new Error('Invalid JSON format. Cannot encrypt invalid JSON.');
+                }
+                
+                saveEditor.rawData = newData;
+                saveEditor.saveData = parsedData;
+                
+                const encryptedData = saveEditor.createSaveFile();
+                const blob = new Blob([encryptedData], { type: 'application/octet-stream' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'user1.dat';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('Encrypted .dat file downloaded successfully!');
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Download encrypted error:', error);
+            }
+        }
+
+        function downloadRawAsJson() {
+            try {
+                const newData = rawDataEditor ? rawDataEditor.getValue() : '';
+                
+                // Validate JSON
+                try {
+                    JSON.parse(newData);
+                } catch (jsonError) {
+                    throw new Error('Invalid JSON format. Please check your syntax.');
+                }
+                
+                const blob = new Blob([newData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'save_data.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('JSON file downloaded successfully!');
+            } catch (error) {
+                showStatus(error.message, true);
+                console.error('Download JSON error:', error);
+            }
+        }
+
         function showRawData() {
             const container = document.getElementById('rawDataContainer');
-            const rawDataDiv = document.getElementById('rawData');
             
             if (saveEditor.saveData) {
-                rawDataDiv.textContent = JSON.stringify(saveEditor.saveData, null, 2);
+                const formattedJson = JSON.stringify(saveEditor.saveData, null, 2);
+                if (rawDataEditor) {
+                    rawDataEditor.setValue(formattedJson);
+                }
+                container.style.display = container.style.display === 'none' ? 'block' : 'none';
+            } else if (saveEditor.rawData) {
+                if (rawDataEditor) {
+                    rawDataEditor.setValue(saveEditor.rawData);
+                }
                 container.style.display = container.style.display === 'none' ? 'block' : 'none';
             } else {
-                showStatus('No save data loaded.', true);
+                showStatus('No data loaded.', true);
             }
         }
 
