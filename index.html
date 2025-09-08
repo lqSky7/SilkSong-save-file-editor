@@ -22,9 +22,9 @@
             font-family: 'Trajan Pro', 'Times New Roman', serif;
             background: linear-gradient(
                 to bottom,
-                rgba(0, 0, 0, 0.3) 0%,
-                rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.8) 100%
+                rgba(0, 0, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.5) 100%
             ), url('background.jpg');
             background-size: cover;
             background-position: center top;
@@ -74,17 +74,12 @@
         }
         
         .container {
-            background: linear-gradient(135deg, 
-                rgba(30, 35, 50, 0.9) 0%,
-                rgba(25, 30, 45, 0.95) 50%,
-                rgba(20, 25, 40, 0.9) 100%
-            );
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            border: none;
             border-radius: 15px;
             margin-bottom: 30px;
             padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: none;
         }
 
         .container h2 {
@@ -148,10 +143,10 @@
         }
 
         .editor-section {
-            background: rgba(15, 20, 30, 0.7);
+            background: transparent;
             padding: 25px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: none;
         }
 
         .editor-section h3 {
@@ -179,8 +174,8 @@
         input[type="number"] {
             width: 100%;
             padding: 12px;
-            background: rgba(10, 15, 25, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             color: #fff;
             border-radius: 8px;
             font-family: 'Trajan Pro', serif;
@@ -294,7 +289,7 @@
         }
         
         .raw-data {
-            background: rgba(0, 0, 0, 0.8);
+            background: transparent;
             padding: 20px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
@@ -302,6 +297,220 @@
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.9em;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Info button and popup styles */
+        .info-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: fadeInScale 0.5s ease-out;
+            font-family: 'Trajan Pro', serif;
+        }
+
+        .info-button:hover {
+            color: rgba(255, 255, 255, 1);
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+        }
+
+        /* Action buttons (bottom right) */
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .main-action-button {
+            width: 55px;
+            height: 55px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .main-action-button:hover {
+            color: rgba(255, 255, 255, 1);
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
+        }
+
+        .main-action-button svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* Popup Windows */
+        .popup-window {
+            position: fixed;
+            padding: 20px;
+            background: linear-gradient(135deg, 
+                rgba(30, 35, 50, 0.95) 0%,
+                rgba(25, 30, 45, 0.98) 50%,
+                rgba(20, 25, 40, 0.95) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            color: white;
+            font-family: 'Trajan Pro', serif;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8) translateY(-20px);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .popup-window.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        .info-popup {
+            top: 70px;
+            right: 20px;
+            width: 350px;
+            max-width: calc(100vw - 40px);
+        }
+
+        .action-popup {
+            bottom: 85px;
+            right: 20px;
+            width: 200px;
+        }
+
+        .popup-window h3 {
+            color: #64b5f6;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .popup-window h3 svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .popup-window p {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+
+        .file-path {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 8px 0;
+            border-left: 3px solid #64b5f6;
+            word-break: break-all;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #e6d3a3;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-item:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .action-item svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Close overlay */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-10deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .close:hover {
+            color: #d4af37;
         }
 
         @media (max-width: 768px) {
@@ -326,12 +535,41 @@
         <img src="HEADER.png" alt="Silksong Save Editor">
     </div>
 
+    <!-- Info Button -->
+    <div class="info-button" onclick="toggleInfoPopup()">
+        i
+    </div>
+
+    <!-- Info Popup -->
+    <div id="infoPopup" class="popup-window info-popup">
+        <h3>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+            </svg>
+            Save File Locations
+        </h3>
+        <p><strong>Windows:</strong></p>
+        <div class="file-path">%USERPROFILE%\AppData\LocalLow\Team Cherry\Hollow Knight Silksong\</div>
+        
+        <p><strong>macOS:</strong></p>
+        <div class="file-path">~/Library/Application Support/unity.Team Cherry.Hollow Knight Silksong/</div>
+        
+        <p><strong>Linux:</strong></p>
+        <div class="file-path">~/.config/unity3d/Team Cherry/Hollow Knight Silksong/</div>
+        
+        <p><em>Look for files named <strong>user1.dat</strong>, <strong>user2.dat</strong>, etc.</em></p>
+    </div>
+
     <div class="main-container">
         <div class="container">
             <h2>Load Save File</h2>
             <div class="file-upload-area" id="fileUploadArea">
                 <div class="upload-content">
-                    <div class="upload-icon">📁</div>
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+                            <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                        </svg>
+                    </div>
                     <p>Drag & Drop your save file here</p>
                     <p class="upload-subtitle">or click to browse</p>
                     <input type="file" id="fileInput" accept=".dat" style="display: none;">
@@ -392,6 +630,34 @@
             <div id="rawData" class="raw-data"></div>
         </div>
     </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="action-buttons">
+        <div class="main-action-button" onclick="toggleActionPopup()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Action Popup -->
+    <div id="actionPopup" class="popup-window action-popup">
+        <a href="https://github.com/lqSky7/SilkSong-save-file-editor" target="_blank" class="action-item">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
+            </svg>
+            Star on GitHub
+        </a>
+        <div class="action-item" onclick="copyUpiId()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+            </svg>
+            Copy UPI ID
+        </div>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div id="popupOverlay" class="popup-overlay" onclick="closeAllPopups()"></div>
 
     <!-- AES library for encryption/decryption -->
     <script src="https://cdn.jsdelivr.net/npm/aes-js@3.1.2/index.min.js"></script>
@@ -646,6 +912,115 @@
             } else {
                 showStatus('No save data loaded.', true);
             }
+        }
+
+        // Popup functions
+        let infoPopupOpen = false;
+        let actionPopupOpen = false;
+
+        function toggleInfoPopup() {
+            const popup = document.getElementById('infoPopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            if (infoPopupOpen) {
+                closeAllPopups();
+            } else {
+                closeAllPopups(); // Close other popups first
+                popup.classList.add('show');
+                overlay.classList.add('show');
+                infoPopupOpen = true;
+            }
+        }
+
+        function toggleActionPopup() {
+            const popup = document.getElementById('actionPopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            if (actionPopupOpen) {
+                closeAllPopups();
+            } else {
+                closeAllPopups(); // Close other popups first
+                popup.classList.add('show');
+                overlay.classList.add('show');
+                actionPopupOpen = true;
+            }
+        }
+
+        function closeAllPopups() {
+            const infoPopup = document.getElementById('infoPopup');
+            const actionPopup = document.getElementById('actionPopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            infoPopup.classList.remove('show');
+            actionPopup.classList.remove('show');
+            overlay.classList.remove('show');
+            
+            infoPopupOpen = false;
+            actionPopupOpen = false;
+        }
+
+        // Close popups when clicking outside
+        document.addEventListener('click', function(event) {
+            const infoButton = document.querySelector('.info-button');
+            const actionButton = document.querySelector('.main-action-button');
+            const infoPopup = document.getElementById('infoPopup');
+            const actionPopup = document.getElementById('actionPopup');
+            
+            // Check if click is outside both popups and buttons
+            if (!infoButton.contains(event.target) && 
+                !actionButton.contains(event.target) && 
+                !infoPopup.contains(event.target) && 
+                !actionPopup.contains(event.target)) {
+                closeAllPopups();
+            }
+        });
+
+        // Close popups on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeAllPopups();
+            }
+        });
+
+        // Copy UPI ID function
+        function copyUpiId() {
+            const upiId = 'd.singh.55@superyes';
+            
+            // Try to use the modern clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(upiId).then(function() {
+                    showStatus('UPI ID copied to clipboard: ' + upiId, false);
+                    closeAllPopups();
+                }).catch(function(err) {
+                    // Fallback for older browsers
+                    fallbackCopyToClipboard(upiId);
+                });
+            } else {
+                // Fallback for older browsers or non-secure contexts
+                fallbackCopyToClipboard(upiId);
+            }
+        }
+
+        // Fallback copy function for older browsers
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showStatus('UPI ID copied to clipboard: ' + text, false);
+                closeAllPopups();
+            } catch (err) {
+                showStatus('Failed to copy UPI ID. Please copy manually: ' + text, true);
+            }
+            
+            document.body.removeChild(textArea);
         }
     </script>
 </body>
